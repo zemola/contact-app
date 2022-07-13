@@ -12,6 +12,7 @@ const [ContactArray, setContacts]  = useState ([]);
 
 const addContactHandler = (contact) => {
     setContacts([...ContactArray, {id:uuid,...contact}]);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ContactArray))
 }
 
 
@@ -24,6 +25,12 @@ const removeContactHandler = (id) => {
 
 }
 
+
+useEffect(()=>{
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ContactArray))
+}, [ContactArray]);
+
+
 useEffect(()=> {
   const ContactArray = 
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -31,10 +38,6 @@ useEffect(()=> {
      setContacts(ContactArray);
     }
  }, []);
-
-useEffect(()=>{
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ContactArray))
-}, [ContactArray]);
 
 
   return (
